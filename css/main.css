@@ -1,0 +1,35 @@
+#caratula{
+    height: 40vh;
+    width:50vh;
+    margin-top:5vh;
+    padding:0;
+    box-shadow: 2px 2px 2px 2px #000000;
+}
+#caratula img{
+    height: 40vh;
+    width:51vh;
+}
+#listado{
+    border:1px solid #cfc7c7;
+    margin-top:5vh;
+    width:20vw;
+    height: 40vh;
+    margin-left:1vw;
+    overflow: auto;
+    margin-left:3vw;
+}
+#listado>div{
+    display:flex;
+    flex-direction:row;
+
+}
+#listado>div>h1{
+    font-size:1vw;
+}
+#listado img{
+    border:2px solid white;
+    background-color:#000000;
+}
+#titulo{
+
+}
