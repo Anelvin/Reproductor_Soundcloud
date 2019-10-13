@@ -13,14 +13,10 @@ var resultado='';
 let lista_canciones = [];
 let cancion = {};
 
-let HelperLista = (url_img, id,titulo)=>{
-    listado.append(`<div class="imagen_min col-11"><img id=${id} src=${url_img} draggable="true" ondragstart="drag(event)"><h1>${titulo}</h1></div>`);
-    // listado.append("<div class='imagen_min col-2'><div class="row" ><img id ='"+ id + "' src='"+url_img+"' title='"+titulo+"'  draggable='true' ondragstart='drag(event)' '></div></div>");
+let HelperLista = (url_img, id,titulo,me_gusta)=>{
+    listado.append(`<div class="imagen_min col-11"><img id=${id} src=${url_img} draggable="true" ondragstart="drag(event)"><div><h5>${titulo}</h5><p>${me_gusta}👍</p></div></div>`);
 };
 
-// let agregarTitulo=(titulo)=>{
-//     listado.append(`<div><h1>${titulo}</h1></div>`);
-// }
 
 let HelperCaratula= (url_img)=>{
     caratula.empty();
@@ -38,9 +34,8 @@ let Busqueda= async ()=> {
 
     numeroCanciones = resultado.length;
     for(let i= 0; i<numeroCanciones; i++){
-        //cancion(resultado[i]);
-        (resultado[i].artwork_url !==null)? HelperLista(resultado[i].artwork_url, resultado[i].id,resultado[i].title): null; 
-        //(resultado[i].artwork_url !==null)? agregarTitulo(resultado[i].title):null;
+        console.log(resultado[i]);
+        (resultado[i].artwork_url !==null)? HelperLista(resultado[i].artwork_url, resultado[i].id,resultado[i].title,resultado[i].likes_count): null; 
     }
   
    }catch (error){
@@ -57,7 +52,6 @@ let drag= (ev)=>{
             nombre=resultado[x].title;
         }
     }
-    
 }
 
 let allowDrop = (ev)=>{
@@ -114,7 +108,6 @@ let agregar=(track)=>{
 
     console.log(cancion);
     lista_canciones.push(cancion);
-   
     let totalItems=localStorage.length;
     localStorage.setItem(lista_canciones.length, JSON.stringify(lista_canciones));
     alert('Canción agregada a favoritos');
@@ -130,9 +123,8 @@ let agregar=(track)=>{
         if(lista.childNodes.length>=10){
             lista.removeChild(lista.childNodes[0]);
         }
-        //document.getElementById('recientes').innerHTML=document.getElementById('recientes').innerHTML+clave+'<br>';
-    
 }
+
 let busquedaRecientes=()=>{
     var clave="";
     var lista=document.getElementById('recientes');
@@ -144,43 +136,5 @@ let busquedaRecientes=()=>{
         texto=document.createTextNode(clave);
         elemento.appendChild(texto);
         lista.appendChild(elemento);
-        //document.getElementById('recientes').innerHTML=document.getElementById('recientes').innerHTML+clave+'<br>';
     }
 }
-/*let Busqueda=async()=>{
-    $('#listado').empty();
-    let autor=$('input').val();
-    SC.initialize({
-        client_id:'aa06b0630e34d6055f9c6f8beb8e02eb'
-    });
-    try{
-    let resultado= await SC.get('/tracks',{q:autor})
-    let numeroCanciones=(resultado.length>5)? 5 : resultado.length;
-    for(let i=0; i<numeroCanciones; i++){
-        var id=numeroCanciones.id;
-        if(resultado[i].artwork_url !== null){
-            $('#listado').append("<div class='imagen_min col-2'> <img id='"+id+"'src='"+resultado[i].artwork_url+"' draggable='true' ondragstart='drag(event)'></div>");
-        }
-        let imagen=resultado[i].artwork_url;
-        let elemento=document.createElement("img");
-        elemento.setAttribute(src,imagen);
-        let contenedor=document.getElementById('listado');
-        contenedor.appendChild(elemento);
-    }
-    }catch(error){
-        console.error(error);
-    }
-}
-
-let drag=(ev)=>{
-    ev.dataTransfer.setData("text", ev.targe.id);
-    ev.dataTransfer.setData("text", ev.target.src);
-}
-let allowDrop =(ev)=>{
-    ev.prenvetDefault();
-}
-let drop=(ev)=>{
-    ev.preventDefault();
-    let id=dataTransfer.getData("text");
-    let src=dataTransfer.getData("image");
-}*/
